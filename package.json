@@ -7,9 +7,10 @@
     "compile": "truffle compile --network testnet",
     "test": "npx builder test",
     "coverage": "npx builder coverage",
-    "flatten": "truffle-flattener contracts/MTNToken.sol > flatten-contracts/MTNToken.sol && truffle-flattener contracts/MTNMasterChef.sol > flatten-contracts/MTNMasterChef.sol && truffle-flattener contracts/MTNMasterChefV2.sol > flatten-contracts/MTNMasterChefV2.sol && truffle-flattener contracts/MTNLottery.sol > flatten-contracts/MTNLottery.sol && truffle-flattener contracts/Timelock.sol > flatten-contracts/Timelock.sol && truffle-flattener contracts/SmartChef.sol > flatten-contracts/SmartChef.sol && node flatten_fix.js"
+    "flatten": "truffle-flattener contracts/MTNToken.sol > flatten-contracts/MTNToken.sol && truffle-flattener contracts/MTNMasterChef.sol > flatten-contracts/MTNMasterChef.sol && truffle-flattener contracts/MTNMasterChefV2.sol > flatten-contracts/MTNMasterChefV2.sol && truffle-flattener contracts/MTNLottery.sol > flatten-contracts/MTNLottery.sol && truffle-flattener contracts/Timelock.sol > flatten-contracts/Timelock.sol && truffle-flattener contracts/SmartChef.sol > flatten-contracts/SmartChef.sol && truffle-flattener contracts/MTNLottery.sol > flatten-contracts/MTNLottery.sol && truffle-flattener contracts/LotteryNFT.sol > flatten-contracts/LotteryNFT.sol && node flatten_fix.js"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^3.2.0",
     "@openzeppelin/test-helpers": "^0.5.6",
     "truffle": "^5.1.58",
     "truffle-flattener": "^1.4.4",
