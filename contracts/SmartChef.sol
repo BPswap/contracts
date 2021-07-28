@@ -34,6 +34,7 @@ contract SmartChef is Ownable {
     // The MTN TOKEN!
     IBEP20 public mtn;
     IBEP20 public rewardToken;
+    uint256 public rewardTokenDecimals;
 
     // MTN tokens created per block.
     uint256 public rewardPerBlock;
@@ -63,6 +64,7 @@ contract SmartChef is Ownable {
     constructor(
         IBEP20 _mtn,
         IBEP20 _rewardToken,
+        uint256 _rewardTokenDecimals,
         uint256 _rewardPerBlock,
         address _burnAddress, // V1
         uint16 _depositFeeBP, // V1
@@ -71,6 +73,7 @@ contract SmartChef is Ownable {
     ) public {
         mtn = _mtn;
         rewardToken = _rewardToken;
+        rewardTokenDecimals = _rewardTokenDecimals;
         rewardPerBlock = _rewardPerBlock;
         burnAddress = _burnAddress; // V1
         depositFeeToBurn = _depositFeeBP; // V1
@@ -157,8 +160,9 @@ contract SmartChef is Ownable {
         updatePool(0);
         if (user.amount > 0) {
             uint256 pending = user.amount.mul(pool.accMtnPerShare).div(1e12).sub(user.rewardDebt);
+            uint256 pendingReward = pending.mul(rewardTokenDecimals).div(1e18);
             if(pending > 0) {
-                rewardToken.safeTransfer(address(msg.sender), pending);
+                rewardToken.safeTransfer(address(msg.sender), pendingReward);
             }
         }
         // V0
@@ -191,8 +195,9 @@ contract SmartChef is Ownable {
         require(user.amount >= _amount, "withdraw: not good");
         updatePool(0);
         uint256 pending = user.amount.mul(pool.accMtnPerShare).div(1e12).sub(user.rewardDebt);
+        uint256 pendingReward = pending.mul(rewardTokenDecimals).div(1e18);
         if(pending > 0) {
-            rewardToken.safeTransfer(address(msg.sender), pending);
+            rewardToken.safeTransfer(address(msg.sender), pendingReward);
         }
         if(_amount > 0) {
             user.amount = user.amount.sub(_amount);
